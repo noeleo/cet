@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Applied Innovations Institute &middot; </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+
+    <%= stylesheet_link_tag "bootstrap" %>
+    <%= stylesheet_link_tag "bootstrap-responsive" %>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <%= render "/navbar"%>
+      </div>
+
+      <div id="content">
+
+        <div class = "row pull-right">
+          
+        </div>
+
+        <div class="row span-centered">
+          <div class = "span4 offset2">
+            <% if @user.avatar and @user.avatar.url != "/avatars/original/missing.png" %>
+              <%= image_tag(@user.avatar.url, :height => "400") %>
+            <% else %>
+              <%= image_tag("goat.jpg", :width => "400") %>
+            <% end %>
+          </div>
+
+          <div class = "span4">
+            <table class="transparent">
+              <thead align = "left">
+    <tr>
+      <th><h1><%= @profile.name %></h1> </th>
+    </tr>
+              </thead>
+              <tbody>
+    <tr align = "left">
+                  <td> About Me: <br> <%= @profile.aboutme %></td>
+    </tr>
+              </tbody>
+            </table>
+            <br>
+
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Email</td>
+                  <td><%= @profile.email %></td>
+                </tr>
+                <tr>
+                  <td>School</td>
+                  <td><%= @profile.school.name %></td>
+                </tr>
+                <tr>
+                  <td>Major</td>
+                  <td><%= @profile.major %></td>
+                </tr>
+                <tr>
+                  <td>Graduation Year</td>
+                  <td><%= @profile.gradyear %></td>
+                </tr>
+              </tbody>
+            </table>
+
+           
+          </div>
+
+          <div class = "span 2">
+            <%= button_to "Edit Profile", edit_profile_path(@user.id), {:class => "btn btn-warning btn-small" } if @is_mine %>
+          </div>
+  </div>
+  
+  <br><br><br>
+  
+  <% if @projects != [] %>
+  <div class = "row span-centered">
+          <div class = "span6 span-centered">
+            <h2>Active Projects</h2>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Owner</th>
+                  <th>Collaborators</th>
+                  <th>Last Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+    <% @projects.each do |project| %>
+    <tr>
+                  <td><%= link_to project.title, project_path(project.id) %></td>
+                  <td><%= link_to project.creator.name, profile_path(project.creator.id) %></td>
+                  <td><%= project.users.length %>
+                  <td><%= time_ago_in_words(project.updated_at) %> ago</td>
+    </tr>
+    <% end %>
+              </tbody>
+            </table>
+          </div>
+  </div>
+  <% end %>
+      </div>
+      
+      <div id="footer">
+  <%= render "/footer"%>
+      </div>
+      
+    </div>
+  </body>
+</html>

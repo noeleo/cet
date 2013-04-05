@@ -1,0 +1,52 @@
+<html>
+<head>
+  <title>Applied Innovations Institute</title>
+  <%= stylesheet_link_tag "bootstrap" %>
+</head>
+
+<body>
+  <div id="wrapper">
+
+    <div id="header">
+    </div>
+
+    <div id="content">
+      <hr class="featurette-divider">
+      <div class="row">
+	<%= image_tag("logoBlackText.png", :size => "250x150") %>
+      </div>
+      <div class="row">
+	<h3> Please sign in below. </h3>
+      </div>
+      <br>
+      <div class="row">	
+  <%= form_tag login_callback_path("developer") do %>
+	
+        <%= label :login_hash, :email, "Email:" %>
+        <%= text_field :login_hash, 'email', :id => 'email' %>
+	
+        <%= label :login_hash, :name, "Name:" %>
+        <%= text_field :login_hash, 'name', :id => 'name' %>
+	
+	<div class="row">
+  	  <% if flash[:error] %>
+  	  <p class="text-error"><%= flash[:error] %></p>
+  	  <% end %>
+  	  <% if flash[:notice] %>
+  	  <p class="notice"><%= flash[:notice] %></p>
+  	  <% end %>
+	</div>
+	<br>
+        <%= submit_tag "Sign In", {:class => "btn btn-primary btn-medium" } %>
+	<% end %>
+      </div>
+
+    </div> <!-- End of Content Div -->
+
+    <div id="footer">
+      <%= render "/footer" %>
+    </div>
+
+  </div>
+</body>
+</html>

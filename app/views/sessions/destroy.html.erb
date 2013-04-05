@@ -1,0 +1,38 @@
+<html>
+<head>
+  <title>Applied Innovations Institute</title>
+  <%= stylesheet_link_tag "bootstrap" %>
+</head>
+
+<body>
+
+  <hr class="featurette-divider">
+    <div class="row">
+        <%= image_tag("logoBlackText.png", :size => "250x150") %>
+    </div>
+    <div class="row">
+      <h3> You've successfully logged out. </h3>
+    </div>
+    <br>
+    <div class="row">	
+      <%= form_tag home_path() do %>
+
+				<div class="row">
+  				<% if flash[:error] %>
+  	  			<p class="text-error"><%= flash[:error] %></p>
+  				<% end %>
+  				<% if flash[:notice] %>
+  	  			<p class="notice"><%= flash[:notice] %></p>
+  				<% end %>
+				</div>
+
+				<br>
+        <%= submit_tag "Back to Homepage", {:class => "btn btn-primary btn-large"}  %>
+
+      <% end %>
+    </div>
+  </hr>
+
+</body>
+</html>
+

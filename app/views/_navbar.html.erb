@@ -1,0 +1,57 @@
+<html>
+
+<head>
+  <%= stylesheet_link_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap-responsive" %>
+</head>
+<body>
+  <div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+
+      <a class="brand pull-left" href = "<%= school_path(@user.school.uri) %>">
+       <%=image_tag("logo.png", :size => "100x50", :border => 0) %>
+      </a>
+
+      <font size="4">
+	      <ul class="nav">
+        	<li><%= link_to @user.school.name, school_path(@user.school.uri) %></li>
+        	<li><%= link_to "Profile", profile_path(@user.id) if @user %></li>
+        	<li><%= link_to "New Project", new_project_path if @user %></li>
+			    <li><%= link_to "Manage Events", events_path if @user.admin %></li>
+
+      	  </ul>
+      </font> 
+ 
+
+      <font size="4">
+    	  <ul class="nav pull-right">
+            <li>
+              <%= form_tag search_path, :method => :post do %>
+
+                    
+                <%= text_field_tag :search, params[:search], :id=>"searchbar", :placeholder=>"Search", :class => "navbar-search"  %>
+                 <input type="submit" id="search_submit" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default; width:1px; height:1px">  
+
+              <% end %>
+
+
+            </li>
+            <li><%= link_to "Logout", logout_path %></li>
+
+
+      	  </ul>
+	</font> 
+	<!--<a class="pull-right" href= "/auth/developer" id = 'login'>Login</a>-->
+	
+    </div>
+  </div>
+  
+  <% if flash[:error] %>
+  <p class="flash_error"><%= flash[:error] %></p>
+  <% end %>
+  <% if flash[:notice] %>
+  <p class="flash_notice"><%= flash[:notice] %></p>
+  <% end %>
+
+</body>
+</html>

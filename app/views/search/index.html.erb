@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Applied Innovations Institute &middot; </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <%= stylesheet_link_tag "bootstrap" %>
+    <%= stylesheet_link_tag "bootstrap-responsive" %>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div id="wrapper">
+
+      <div id="header">
+	<%= render "/navbar" %>
+      </div>
+
+      <div id="content">  
+
+    <div class = "row">
+      <div class = "span12 span-centered">
+        <h2> Your search results for: "<%= params[:search] %>" </h2>
+      </div>
+    </div>
+
+    <% if @user_results != [] %>
+  	<div class = "row">
+      <div class = "span6 offset3">
+        <h3> Users </h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user_results.each do |user| %>
+            <tr>
+              <td><%= link_to user.name, profile_path(user.id) %></td>         
+              <td><%= user.email %></td>   
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+  	</div>
+    <% end %>
+	
+    <% if @project_results != [] %>
+  	<div class = "row">
+      <div class = "span12 span-centered">
+        <h3> Projects </h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Owner</th>
+              <th>Description</th>
+              <th>Collaborators</th>
+              <th>Last Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @project_results.each do |project| %>
+            <tr>
+              <td><%= link_to project.title, project_path(project.id) %></td>
+              <td><%= link_to project.creator.name, profile_path(project.creator.id) %></td>
+              <td><%= project.description %>
+              <td><%= project.users.length %>
+              <td><%= time_ago_in_words(project.updated_at) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+  	</div>
+    <% end %>
+
+    <% if @event_results != [] %>  
+    <div class = "row">
+      <div class = "span12 span-centered">
+        <h3> Events </h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Location</th>
+              <th>Start</th>
+              <th>End</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @event_results.each do |event| %>
+            <tr>
+              <td><%= event.name %></td>         
+              <td><%= event.description %></td>   
+              <td><%= event.location %></td>   
+              <td><%= event.startTime.strftime("%B %d, %Y at %I:%M %p") %></td>   
+              <td><%= event.endTime.strftime("%B %d, %Y at %I:%M %p") %></td>   
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% end %>
+
+    <% if @event_results == [] && @project_results == [] && @user_results == [] %>
+    <div class = "row">
+      <div class = "span9 span-centered">
+        <h3> Your search did not find any matches. Try a different search term!</h3>
+      </div>
+    </div>
+    <% end %>
+
+
+
+
+      </div>
+	
+      <div id="footer">
+	<%= render "/footer"%>
+      </div>
+
+    </div>
+  </body>
+</html>

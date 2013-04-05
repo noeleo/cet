@@ -1,0 +1,53 @@
+<html>
+<head>
+  <%= stylesheet_link_tag "bootstrap" %>
+</head>
+
+<body>
+
+<div id="wrapper">
+  <div id="header">
+    <%= render "/navbar"%>
+  </div>
+
+  <div id="content">
+
+    <div class = "row">
+      <h2>Edit Project: <%= link_to @project.title, project_path(@project.id) %></h2>
+    </div>
+
+
+  <%= form_tag edit_project_path do %>
+    <div class = "row table-centered">
+    
+      <%= label :project, :title, "Title:" %>
+      <%= text_field :project, :title, :value => @project.title %>
+    </div>
+
+    <div class = "row table-centered">
+      <%= label :project, :description, "Enter a short description:" %>
+      <textarea class="field span8" id="project_description" name="project[description]" rows="6"><%= @project.description %></textarea>
+    </div>
+
+    <div class = "row table-centered">
+      <div class = "span2 offset3">
+        <%= submit_tag "Update Project", :class => "btn btn-primary" %>
+        <% end %>
+      </div>
+      <div class = "span2">
+        <%= button_to "Edit Collaborators", edit_collaborators_path(@project.id), :class => "btn btn-warning" %>
+      </div>
+      <div class = "span2">
+        <%= button_to "Delete Project", (destroy_project_path(@project.id) if @can_delete), :class => "btn btn-danger", :confirm => "Are you sure you wish to delete this project?"%>
+      </div>
+    </div>
+</div>
+
+    <div id="footer">
+      <%= render "/footer"%>
+    </div>
+
+  </div>
+
+</body>
+</html>

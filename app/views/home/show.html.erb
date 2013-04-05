@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title>Applied Innovations Institute</title>
+  <%= stylesheet_link_tag "bootstrap" %>
+</head>
+
+<body>
+  <div id="wrapper">
+
+      <div id="header">
+      </div>
+  
+      <div id="content">
+	<br>
+	<div class="row">
+          <%= image_tag("logoBlackText.png", :size => "520x150") %>
+	</div>
+	<div class="row">
+          <h3> Challenging today's students to become tomorrow's Entrepreneurs </h3>
+	</div>
+	<hr>
+	<div class="row">
+          <%= button_to "Login", login_path(), {:class => "btn btn-primary btn-large" } %>
+	</div>
+	<hr>
+      </div>
+
+      <div id="footer">
+	<%= render "/footer" %>
+      </div>
+
+  </div>
+</body>
+</html>

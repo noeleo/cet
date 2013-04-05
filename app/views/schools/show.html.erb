@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Applied Innovations Institute &middot; </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+
+    <%= stylesheet_link_tag "bootstrap" %>
+    <%= stylesheet_link_tag "bootstrap-responsive" %>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body background="Water-Drops.jpg">
+    <div id="wrapper">
+
+      <div id="header">
+	<%= render "/navbar"%>
+      </div>
+      <div id="content">
+	<div class="container marketing">
+	  <div class="row">
+	    <div class="span2 offset2">
+	      <%= image_tag("berkeleySeal.png", :size => "150x150") %>
+	    </div>
+	    <div class="span5">
+	      <%= @school.name %>
+	      <!-- <h4 style="font-size: 72pt; color: 0xfefefe"><em>UC Berkeley</em> </h4> -->
+	    </div>
+	  </div>
+	</div>
+	
+	<br>
+	<!-- <hr class="featurette-divider" border-top="1px solid #0e0e0e" border-bottom="1pm solid #0e0e0e"> -->
+	<!-- <hr style="color: 0x0e0e0e; border-top: 1px solid #0e0e0e; border-bottom: 1px solid #0e0e0e"> -->
+	<hr>
+	
+	<div class="row">
+	  <p style="font-size: 30pt; color: 0xf4f4f4;"><B>Upcoming Events</B></p>
+	</div>
+	<br>
+	<div class="row-fluid">
+	  <% @events.take(3).each do |event| %>
+	  <div class="span4">
+	    <h3><%= event.name %></h3>
+	    <p> <B>About:</B> <%= event.description %></p>
+	    <p> <%= event.location %></p>
+	    <p> Begins on <%= event.startTime.strftime("%B %d, %Y at %I:%M %p") %></p>
+	    <p> And ends on <%= event.endTime.strftime("%B %d, %Y at %I:%M %p") %></p>
+	  </div>
+	  <% end %>
+	</div>
+	
+	<hr class="featurette-divider">
+
+	<div class="row span-centered">
+	    <h3><%= "Newest Projects by #{@school.name} Students" %></h3>
+	</div>
+	<div class="row">
+		<div class = "span6 span-centered">
+
+	    <table class="table table-centered table-striped">
+	      <thead>
+		<tr>
+		  <th>Project Name</th>
+		  <th>Project Owner</th>
+		  <th>Date Created</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<% @projects.each do |project| %>
+		<tr>
+		  <td><%= link_to project.title, project_path(project.id) %></td>
+		  <td><%= link_to project.creator.name, profile_path(project.creator.id) %></td>
+		  <td><%= time_ago_in_words(project.created_at) %> ago</td>
+		</tr>
+		<% end %>
+	      </tbody>
+	    </table>
+	   </div>
+	</div>
+
+      </div>
+
+      <div id="footer">
+	<%= render "/footer"%>
+      </div>
+
+    </div>
+  </body>
+</html>
